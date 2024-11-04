@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var lblPlayerOne: UILabel!
     @IBOutlet weak var lblPlayerTwo: UILabel!
-        
+    
     var playersTurn: Bool = true
     let myGame = Game()
     
@@ -46,22 +46,22 @@ class GameViewController: UIViewController {
     
     @IBAction func onTapGesture(_ sender: UITapGestureRecognizer) {
         
-           guard let view = sender.view, view.isUserInteractionEnabled else {
-               return
-           }
-           
-           let playerId = playersTurn ? 1 : 2
-           if let currentPlayerSymbol = myGame.findPlayerById(id: playerId)?.symbol {
-               
-               addLabelOnView(on: view, withText: currentPlayerSymbol)
-               updatePlayingBoard(boxIndex: view.tag)
-               
-               view.isUserInteractionEnabled = false
-           }
-           
-           checkWinner()
-           playersTurn.toggle()
-           highlightCurrentPlayerLabel()
+        guard let view = sender.view, view.isUserInteractionEnabled else {
+            return
+        }
+        
+        let playerId = playersTurn ? 1 : 2
+        if let currentPlayerSymbol = myGame.findPlayerById(id: playerId)?.symbol {
+            
+            addLabelOnView(imageView: view, text: currentPlayerSymbol)
+            updatePlayingBoard(boxIndex: view.tag)
+            
+            view.isUserInteractionEnabled = false
+        }
+        
+        checkWinner()
+        playersTurn.toggle()
+        highlightCurrentPlayerLabel()
         
     }
     
@@ -77,20 +77,17 @@ class GameViewController: UIViewController {
         
     }
     
-    func addLabelOnView(on imageView: UIView, withText text: String) {
+    func addLabelOnView(imageView: UIView, text: String) {
         let label = UILabel()
         
         label.text = text
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 60)
         
-        // Set label to match imageView bounds
         label.frame = imageView.bounds
         
-        // Add label to imageView
         imageView.addSubview(label)
         
-        // Update the layout after adding the label
         imageView.layoutIfNeeded()
     }
     
@@ -106,27 +103,27 @@ class GameViewController: UIViewController {
     
     func checkWinner(){
         
-            let winningCombinations = [
-                (checkFirstHorizontalRow, 0),
-                (checkSecondHorizontalRow, 3),
-                (checkThirdHorizontalRow, 6),
-                (checkleftDiagonal, 0),
-                (checkRightDiagonal, 2),
-                (checkFirstVerticalRow, 0),
-                (checkSecondVerticalRow, 1),
-                (checkThirdVerticalRow, 2)
-            ]
-            
-            for (combination, indexToCheck) in winningCombinations {
-                if combination.allSatisfy({ playingBoard[$0] == 1 }) || combination.allSatisfy({ playingBoard[$0] == 2 }) {
-                    getWinner(playingBoardIndexToCheck: indexToCheck)
-                    return
-                }
+        let winningCombinations = [
+            (checkFirstHorizontalRow, 0),
+            (checkSecondHorizontalRow, 3),
+            (checkThirdHorizontalRow, 6),
+            (checkleftDiagonal, 0),
+            (checkRightDiagonal, 2),
+            (checkFirstVerticalRow, 0),
+            (checkSecondVerticalRow, 1),
+            (checkThirdVerticalRow, 2)
+        ]
+        
+        for (combination, indexToCheck) in winningCombinations {
+            if combination.allSatisfy({ playingBoard[$0] == 1 }) || combination.allSatisfy({ playingBoard[$0] == 2 }) {
+                getWinner(playingBoardIndexToCheck: indexToCheck)
+                return
             }
-            
-            if !playingBoard.contains(0) {
-                tieAlert()
-            }
+        }
+        
+        if !playingBoard.contains(0) {
+            tieAlert()
+        }
     }
     
     func getWinner(playingBoardIndexToCheck: Int){
@@ -141,38 +138,48 @@ class GameViewController: UIViewController {
     
     
     func winnerAlert(id: Int){
-        let alert = UIAlertController(title: "\(myGame.getPlayerName(id: id)) WON!",
-                                      message: "\(myGame.getPlayerName(id: 1)) score: \(myGame.getPlayerScore(id: 1)). \(myGame.getPlayerName(id: 2)) score: \(myGame.getPlayerScore(id: 2))",
-                                      preferredStyle: .alert)
-        // Add a button
-        let playAgainActionButton = UIAlertAction(title: "New round",
-                                                  style: .default) { _ in self.playAgainReset()}
-        let quitGameActionButton = UIAlertAction(title: "Quit game", style: .default){ _ in self.quitGame()}
+        let alert = UIAlertController(
+            title: "\(myGame.getPlayerName(id: id)) WON!",
+            message: "\(myGame.getPlayerName(id: 1)) score: \(myGame.getPlayerScore(id: 1)). \(myGame.getPlayerName(id: 2)) score: \(myGame.getPlayerScore(id: 2))",
+            preferredStyle: .alert)
+        
+        let playAgainActionButton = UIAlertAction(
+            title: "New round",
+            style: .default) { _ in self.playAgainReset()}
+        
+        let quitGameActionButton = UIAlertAction(
+            title: "Quit game",
+            style: .default){ _ in self.quitGame()}
         
         alert.addAction(quitGameActionButton)
         alert.addAction(playAgainActionButton)
-        // present the alert on screen
+        
         self.present(alert, animated: true, completion: nil)
     }
     
     func tieAlert(){
-        let alert = UIAlertController(title: "It's a tie",
-                                      message: "No points given this round",
-                                      preferredStyle: .alert)
-        // Add a button
-        let playAgainActionButton = UIAlertAction(title: "New round",
-                                                  style: .default) { _ in self.playAgainReset()}
-        let quitGameActionButton = UIAlertAction(title: "Quit game", style: .default){ _ in self.quitGame()}
-
+        let alert = UIAlertController(
+            title: "It's a tie",
+            message: "No points given this round",
+            preferredStyle: .alert)
+        
+        let playAgainActionButton = UIAlertAction(
+            title: "New round",
+            style: .default) { _ in self.playAgainReset()}
+        
+        let quitGameActionButton = UIAlertAction(
+            title: "Quit game",
+            style: .default){ _ in self.quitGame()}
+        
         alert.addAction(quitGameActionButton)
         alert.addAction(playAgainActionButton)
-        // present the alert on screen
+        
         self.present(alert, animated: true, completion: nil)
     }
     
     
     func playAgainReset(){
-        // Remove all labels from the game board views and enable user interaction
+        
         let allViews = [firstVerticalStack, secondVerticalStack, thirdVerticalStack]
         
         for stackView in allViews {
@@ -183,8 +190,7 @@ class GameViewController: UIViewController {
                 }
             }
         }
-            
-        // Reset the playing board and game state
+        
         playingBoard = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         playersTurn = true
         highlightCurrentPlayerLabel()
@@ -193,5 +199,4 @@ class GameViewController: UIViewController {
     func quitGame(){
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
