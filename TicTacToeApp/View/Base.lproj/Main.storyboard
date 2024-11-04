@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3gq-oK-Kfx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3gq-oK-Kfx">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,12 +51,15 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="C5i-92-zgy" firstAttribute="top" secondItem="Ciz-br-yhH" secondAttribute="top" id="qXb-fw-Es9"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="l4D-Ex-r90"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Ciz-br-yhH" firstAttribute="top" secondItem="l4D-Ex-r90" secondAttribute="top" constant="267" id="Ozv-WN-pPy"/>
+                            <constraint firstItem="Ciz-br-yhH" firstAttribute="top" secondItem="l4D-Ex-r90" secondAttribute="top" constant="267" id="WoB-AI-KTa"/>
                             <constraint firstItem="Ciz-br-yhH" firstAttribute="leading" secondItem="l4D-Ex-r90" secondAttribute="leading" constant="20" id="c5G-zo-W3Q"/>
                             <constraint firstItem="l4D-Ex-r90" firstAttribute="bottom" secondItem="Ciz-br-yhH" secondAttribute="bottom" constant="279.67000000000002" id="nvZ-Eb-Djl"/>
                             <constraint firstItem="l4D-Ex-r90" firstAttribute="trailing" secondItem="Ciz-br-yhH" secondAttribute="trailing" constant="20" id="rso-2h-xU5"/>

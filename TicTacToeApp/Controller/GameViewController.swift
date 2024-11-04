@@ -9,11 +9,10 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    // All stack views
     @IBOutlet weak var firstVerticalStack: UIStackView!
     @IBOutlet weak var secondVerticalStack: UIStackView!
     @IBOutlet weak var thirdVerticalStack: UIStackView!
-    // Label outlets
+    
     @IBOutlet weak var lblPlayerOne: UILabel!
     @IBOutlet weak var lblPlayerTwo: UILabel!
         
@@ -45,36 +44,24 @@ class GameViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    
     @IBAction func onTapGesture(_ sender: UITapGestureRecognizer) {
         
-        // Check that there is a view
-        if let view = sender.view {
-            //Check if the current box is already used
-            if view.isUserInteractionEnabled == true {
-                
-                if playersTurn  == true {
-                    if let currentPlayerSymbol = myGame.findPlayerById(id: 1)?.symbol  {
-                        
-                        addLabelOnView(on: view, withText: currentPlayerSymbol)
-                        updatePlayingBoard(boxIndex: view.tag)
-                        view.isUserInteractionEnabled = false
-                        
-                    }
-                }else  {
-                    if let currentPlayerSymbol = myGame.findPlayerById(id: 2)?.symbol  {
-                        
-                        addLabelOnView(on: view, withText: currentPlayerSymbol)
-                        updatePlayingBoard(boxIndex: view.tag)
-                        view.isUserInteractionEnabled = false
-                        
-                    }
-                }
-                checkWinner()
-                playersTurn.toggle()
-                highlightCurrentPlayerLabel()
-            }
-        }
+           guard let view = sender.view, view.isUserInteractionEnabled else {
+               return
+           }
+           
+           let playerId = playersTurn ? 1 : 2
+           if let currentPlayerSymbol = myGame.findPlayerById(id: playerId)?.symbol {
+               
+               addLabelOnView(on: view, withText: currentPlayerSymbol)
+               updatePlayingBoard(boxIndex: view.tag)
+               
+               view.isUserInteractionEnabled = false
+           }
+           
+           checkWinner()
+           playersTurn.toggle()
+           highlightCurrentPlayerLabel()
         
     }
     
@@ -85,7 +72,7 @@ class GameViewController: UIViewController {
         }
         else {
             lblPlayerOne.textColor = UIColor.black
-            //lblPlayerTwo.textColor = UIColor.blue
+            lblPlayerTwo.textColor = UIColor.blue
         }
         
     }

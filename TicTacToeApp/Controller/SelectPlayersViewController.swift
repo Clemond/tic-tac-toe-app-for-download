@@ -9,7 +9,6 @@ import UIKit
 
 class SelectPlayersViewController: UIViewController {
     
-    
     @IBOutlet weak var txtPlayerOneInput: UITextField!
     @IBOutlet weak var txtPlayerTwoInput: UITextField!
     
@@ -23,7 +22,6 @@ class SelectPlayersViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
 
     @IBAction func btnStartGame(_ sender: UIButton) {
         
@@ -32,7 +30,6 @@ class SelectPlayersViewController: UIViewController {
             playerOne = player1
             playerTwo = player2
         }
-        
     }
     
     // MARK: - Navigation
