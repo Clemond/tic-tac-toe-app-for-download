@@ -27,7 +27,8 @@ class SelectPlayersViewController: UIViewController {
 
     @IBAction func btnStartGame(_ sender: UIButton) {
         
-        if let player1 = txtPlayerOneInput.text, let player2 = txtPlayerTwoInput.text {
+        if let player1 = txtPlayerOneInput.text,
+           let player2 = txtPlayerTwoInput.text {
             playerOne = player1
             playerTwo = player2
         }
