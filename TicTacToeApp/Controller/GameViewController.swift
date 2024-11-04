@@ -106,43 +106,27 @@ class GameViewController: UIViewController {
     
     func checkWinner(){
         
-        if checkFirstHorizontalRow.allSatisfy({ playingBoard[$0] == 1}) || checkFirstHorizontalRow.allSatisfy({ playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 0)
-            return
-        }
-        else if checkSecondHorizontalRow.allSatisfy({ playingBoard[$0] == 1}) || checkSecondHorizontalRow.allSatisfy({ playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 3)
-            return
-        }
-        else if checkThirdHorizontalRow.allSatisfy({ playingBoard[$0] == 1}) || checkThirdHorizontalRow.allSatisfy({ playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 6)
-            return
-        }
-        else if checkleftDiagonal.allSatisfy({ playingBoard[$0] == 1}) || checkleftDiagonal.allSatisfy({ playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 0)
-            return
-        }
-        else if checkRightDiagonal.allSatisfy({ playingBoard[$0] == 1}) || checkRightDiagonal.allSatisfy({ playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 2)
-            return
-        }
-        else if checkFirstVerticalRow.allSatisfy({playingBoard[$0] == 1}) || checkFirstVerticalRow.allSatisfy({playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 0)
-            return
-        }
-        else if checkSecondVerticalRow.allSatisfy({playingBoard[$0] == 1}) || checkSecondVerticalRow.allSatisfy({playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 1)
-            return
-        }
-        else if checkThirdVerticalRow.allSatisfy({playingBoard[$0] == 1}) || checkThirdVerticalRow.allSatisfy({playingBoard[$0] == 2}){
-            getWinner(playingBoardIndexToCheck: 2)
-            return
-        }
-        
-        if !playingBoard.contains(0){
-            tieAlert()
-        }
-        
+            let winningCombinations = [
+                (checkFirstHorizontalRow, 0),
+                (checkSecondHorizontalRow, 3),
+                (checkThirdHorizontalRow, 6),
+                (checkleftDiagonal, 0),
+                (checkRightDiagonal, 2),
+                (checkFirstVerticalRow, 0),
+                (checkSecondVerticalRow, 1),
+                (checkThirdVerticalRow, 2)
+            ]
+            
+            for (combination, indexToCheck) in winningCombinations {
+                if combination.allSatisfy({ playingBoard[$0] == 1 }) || combination.allSatisfy({ playingBoard[$0] == 2 }) {
+                    getWinner(playingBoardIndexToCheck: indexToCheck)
+                    return
+                }
+            }
+            
+            if !playingBoard.contains(0) {
+                tieAlert()
+            }
     }
     
     func getWinner(playingBoardIndexToCheck: Int){
